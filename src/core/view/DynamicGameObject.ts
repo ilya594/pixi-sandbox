@@ -80,12 +80,12 @@ export class DynamicGameObject extends Sprite {
         }
     }
 
-    public setPath(path: Array<IFieldPosition> = []): void {
+    public setPath(path: Array<IGlobalPosition> = []): void {
         this.path = path;
         this.setTarget(this.path.shift());
     }
 
-    public getPath = (): Array<IFieldPosition> => {
+    public getPath = (): Array<IGlobalPosition> => {
         return [...this.path];
     }
 

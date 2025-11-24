@@ -45,7 +45,7 @@ export class Dude extends DynamicGameObject {
         this.angle += (Math.sign(dx) * this.delta * this.delta);
     }
 
-    public override setPath(path: Array<IFieldPosition> = []): void {
+    public override setPath(path: Array<IGlobalPosition> = []): void {
         super.setPath(path);
         this.crew.forEach((minion: Minion) => minion.setPath(this.getPath()));
     }

@@ -1,5 +1,5 @@
 import { Assets, Container, Ticker } from "pixi.js";
-import { IGridCellType, IFieldPosition, IGameRenderer } from "../common";
+import { IGridCellType, IFieldPosition, IGameRenderer, IGlobalPosition } from "../common";
 import { GameConfig } from "./config/Config";
 import UIComponents from "./view/UIComponents";
 import { Dude } from "./view/components/Dude";
@@ -74,7 +74,9 @@ export class GameController {
 
     private onObjectsEngaged = (objects: Array<DynamicGameObject>): void => {
 
-        const target: IFieldPosition = GameObjects.dude.getTarget();
+        const target: IGlobalPosition = GameObjects.dude.getTarget();
+
+        const positions: Array<IFieldPosition> = this.fieldUtils.getPositionsListAround(pixelsToPosition(target), IGridCellType.EMPTY, 5);
 
         let halfTimeout: any;
         let fullTimeout: any;
@@ -104,7 +106,13 @@ export class GameController {
                 minion.setPath(this.fieldUtils.findPath(
                     pixelsToPosition(minion.position), pixelsToPosition(target), true));
             }
-        })
+        });
+
+        GameObjects.minions.forEach((minion: Minion) => {
+            if (minion.isGrouped) {
+                minion.appendPath([positionToPixels(positions.pop())]);
+            }
+        });
     }
 
     private onObjectExiting = (object: Minion) => {

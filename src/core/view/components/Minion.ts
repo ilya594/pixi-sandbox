@@ -48,8 +48,12 @@ export class Minion extends DynamicGameObject {
         this.hitArea = new Rectangle(this.x, this.y, this.texture.width, this.texture.height);
     }
 
-    public override setPath(path: Array<IFieldPosition> = []): void {
-        super.setPath(path);
+   // public override setPath(path: Array<IFieldPosition> = []): void {
+    //    super.setPath(path);
+   // }
+
+    public appendPath(path: Array<any>) {
+        this.path = this.path.concat(path);
     }
 
     protected override move(dx: number, dy: number, distance: number): void {
