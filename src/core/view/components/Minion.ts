@@ -35,7 +35,7 @@ export class Minion extends DynamicGameObject {
     constructor(texture: any, isLazy: boolean = false) {
         super(texture);
 
-        this.isLazy = isLazy;
+        this.isLazy = isLazy; // implement some stuff depending on this
         this.redraw();
     }
 

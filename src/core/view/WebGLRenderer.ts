@@ -1,31 +1,8 @@
 
 import { Application, Assets, Container, Graphics, Sprite } from 'pixi.js';
 import { GameConfig, replaceConfig } from '../config/Config';
-import { Minion } from './components/Minion';
 import GameEvents from '../data/GameEvents';
 import GameObjects from '../data/GameObjects';
-
-
-interface IRendererConfig {
-    FIELD_WIDTH: number;
-    FIELD_HEIGHT: number;
-    FRAME_INTERVAL: number;
-    CANVAS: HTMLCanvasElement | HTMLElement;
-    TILE_SIZE: number;
-    COLORS: {
-        MINION: string;
-        DUDE: string;
-        GRID: string;
-        BACKGROUND: string;
-        PATH: string;
-        TARGET: string;
-        TEXT: string;
-    };
-    ENDPOINT: any;
-    OBSTACLES: any;
-    DUDE: any;
-    MINION: any;
-}
 
 class WebGLRenderer {
 
@@ -67,12 +44,9 @@ class WebGLRenderer {
         return this;
     }
 
-    public onEnterRenderCycle = (/*time: any*/) => {
 
-        //GameObjects.dude.update();
-        //GameObjects.minions.forEach((minion: Minion) => minion.update());
-        GameObjects.pointer.update();
-    }
+    // obsolete ?
+    public onEnterRenderCycle = (/*time: any*/) => { }
 
     public displayEntities = (): void => {
 

@@ -44,7 +44,7 @@ export class DynamicGameObject extends Sprite {
         Ticker.shared.add(this.update);
     }
 
-    public redraw = () => { }
+    public redraw = () => {/* obsolete? */ }
 
     public setTarget = (position: IGlobalPosition): void => {
 
@@ -60,6 +60,12 @@ export class DynamicGameObject extends Sprite {
         this.y += (dy / distance) * this.delta;
     }
 
+    protected stop() {
+        this.x = this.target.x;
+        this.y = this.target.y;
+        this.setTarget(this.path.shift());
+    }
+
     public update = () => {
         if (this._state !== DynamicGameObjectState.MOVING) return;
 
@@ -67,15 +73,8 @@ export class DynamicGameObject extends Sprite {
         const dy: number = this.target.y - this.y;
         const distance: number = Math.sqrt(dx * dx + dy * dy);
 
-        const _stop = () => {
-            this.x = this.target.x;
-            this.y = this.target.y;
-            this.setTarget(this.path.shift());
-        }
-
-
         if (distance < this.delta) {
-            _stop();
+            this.stop();
         } else {
             this.move(dx, dy, distance)
         }

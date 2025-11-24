@@ -5,25 +5,21 @@ import { getPriceText } from "../../utils/Utils";
 export class Score extends Sprite {
 
     private amount: number = 5;
+    private textAmount: Text;
+    private textCurrency: Text;
 
     public getAmount = (): number => {
         return this.amount;
     }
 
     public adjustAmount = (value: number) => {
-        console.log('[amount] ' + this.amount + '   [value] ' + value);
         this.amount += value;
         this.textAmount.text = String(this.amount);
         this.textCurrency.text = getPriceText(this.amount);
     }
 
-
-    private textAmount: Text;
-    private textCurrency: Text;
-
     constructor(texture: any) {
         super(texture);
-        //     this.alpha = 0.5;
 
         this.position = { x: 0, y: GameConfig.FIELD_HEIGHT * GameConfig.CELL_SIZE };
 
@@ -41,8 +37,7 @@ export class Score extends Sprite {
             fontSize: 64,
             fontWeight: "bold"
         };
-        const styleCurrencyOptions = {...styleAmountOptions, ...{    fontSize: 28, fontWeight: 100 }};
-
+        const styleCurrencyOptions = { ...styleAmountOptions, ...{ fontSize: 28, fontWeight: 100 } };
 
         this.textAmount = new Text();
         this.textAmount.position.set(this.width / 2 - styleAmountOptions.fontSize * 1.5, this.height / 1.5);
@@ -57,7 +52,6 @@ export class Score extends Sprite {
         this.textCurrency.pivot.x = styleCurrencyOptions.fontWeight / 2;
         this.textCurrency.pivot.y = styleCurrencyOptions.fontWeight / 2;
         this.addChild(this.textCurrency);
-
 
         this.pivot.set(0, this.height);
         this.scale.set((GameConfig.FIELD_WIDTH * GameConfig.CELL_SIZE) / this.width, 1)

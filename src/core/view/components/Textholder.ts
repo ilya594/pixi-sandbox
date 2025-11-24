@@ -16,8 +16,7 @@ export class Textholder extends Sprite {
         this.text = new Text();
         this.text.x = GameConfig.CELL_SIZE * 2;
         this.text.y = GameConfig.CELL_SIZE * 1.5;
-        this.addChild(this.text);
-        
+        this.addChild(this.text);        
     }
 
     public showText = (object: any, text: string = undefined) => {

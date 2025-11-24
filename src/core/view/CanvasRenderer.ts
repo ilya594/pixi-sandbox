@@ -18,6 +18,10 @@ interface IRendererConfig {
     };
 }
 
+/**
+ * 
+ *  Not used, but let it be here in case ..
+ */
 class CanvasRenderer {
 
     private config: IRendererConfig;
