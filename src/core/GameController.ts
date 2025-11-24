@@ -76,6 +76,7 @@ export class GameController {
 
         const target: IGlobalPosition = GameObjects.dude.getTarget();
 
+        // TODO get rid of this global-to-local position mess around
         const positions: Array<IFieldPosition> = this.fieldUtils.getPositionsListAround(pixelsToPosition(target), IGridCellType.EMPTY, 5);
 
         let halfTimeout: any;
