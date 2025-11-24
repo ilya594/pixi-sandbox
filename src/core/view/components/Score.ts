@@ -24,7 +24,7 @@ export class Score extends Sprite {
         this.position = { x: 0, y: GameConfig.FIELD_HEIGHT * GameConfig.CELL_SIZE };
 
         const styleAmountOptions: any = {
-            align: "center",
+            align: "left",
             dropShadow: {
                 alpha: 0.5,         // 50% opacity shadow
                 angle: Math.PI / 6, // 30 degrees
@@ -37,7 +37,7 @@ export class Score extends Sprite {
             fontSize: 64,
             fontWeight: "bold"
         };
-        const styleCurrencyOptions = { ...styleAmountOptions, ...{ fontSize: 28, fontWeight: 100 } };
+        const styleCurrencyOptions = { ...styleAmountOptions, ...{ align: "right", fontSize: 28, fontWeight: 100 } };
 
         this.textAmount = new Text();
         this.textAmount.position.set(this.width / 2 - styleAmountOptions.fontSize * 1.5, this.height / 1.5);

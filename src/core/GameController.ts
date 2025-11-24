@@ -74,22 +74,14 @@ export class GameController {
 
     private onObjectsEngaged = (objects: Array<DynamicGameObject>): void => {
 
-        const path = GameObjects.dude.getPath();
-        let target: IFieldPosition;
-        let positions: Array<IFieldPosition> = [];
-
-        if (path.length) {
-            target = pixelsToPosition(path[path.length - 1]);
-            positions = this.fieldUtils.getPositionsListAround(target, IGridCellType.EMPTY, 3);
-        }
-
+        const target: IFieldPosition = GameObjects.dude.getTarget();
 
         let halfTimeout: any;
         let fullTimeout: any;
 
         //TODO refactor this shit
         const processDialogStuff = (minion: Minion) => {
-                            GameObjects.dialog.showText(minion);
+              GameObjects.dialog.showText(minion);
               Ticker.shared.stop();
 
                 clearTimeout(halfTimeout);
@@ -108,8 +100,9 @@ export class GameController {
 
         objects.forEach((minion: Minion) => {
             if (GameObjects.dude.addToGroup(minion)) {
-                processDialogStuff(minion);
-                minion.setPath(positions.length ? path.concat(positionToPixels(positions.shift())) : path);
+                processDialogStuff(minion);      
+                minion.setPath(this.fieldUtils.findPath(
+                    pixelsToPosition(minion.position), pixelsToPosition(target), true));
             }
         })
     }

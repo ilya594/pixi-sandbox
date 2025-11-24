@@ -51,7 +51,7 @@ export class Dude extends DynamicGameObject {
     }
 
     public getTarget = (): IGlobalPosition => {
-        return this.path[this.path.length - 1];
+        return this.target;
     }
 }
 

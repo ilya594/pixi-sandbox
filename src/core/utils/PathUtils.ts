@@ -33,7 +33,7 @@ class PathFinder {
             position.x >= 0 && position.x < field[0].length);
     }
 
-    public findPath = (field: Uint8Array[], start: IFieldPosition, target: IFieldPosition, smooth: boolean = false): IFieldPosition[] | null => {
+    public findPath = (field: Uint8Array[], start: IFieldPosition, target: IFieldPosition, smooth: boolean = true): IFieldPosition[] | null => {
         if (this.isObstacle(field, target) || !this.isValidPosition(field, target)) return null;
 
         const openSet: PathNode[] = [];
@@ -195,22 +195,15 @@ class PathFinder {
         if (path.length <= 2) return path;
 
         const smoothed: IFieldPosition[] = [path[0]];
+        let lastIndex = 0;
 
         for (let i = 2; i < path.length; i++) {
-            const prev = path[i - 2];
-            const current = path[i - 1];
-            const next = path[i];
-
-            // Only smooth if movement is horizontal or vertical, not diagonal
-            const isStraightLine = (prev.x === current.x && current.x === next.x) ||
-                (prev.y === current.y && current.y === next.y);
-
-            if (isStraightLine && this.canWalkStraight(field, prev, next)) {
-                // Skip the middle point if we can walk straight
-                continue;
-            } else {
-                smoothed.push(current);
+            // Try to connect last smoothed point with current point
+            if (!this.canWalkStraight(field, smoothed[smoothed.length - 1], path[i])) {
+                // Can't walk directly - add the previous point
+                smoothed.push(path[i - 1]);
             }
+            // Otherwise continue (skip the middle point)
         }
 
         smoothed.push(path[path.length - 1]);
