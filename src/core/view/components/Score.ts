@@ -48,7 +48,7 @@ export class Score extends Sprite {
         this.textCurrency = new Text();
         this.textCurrency.position.set(this.width / 2 + styleCurrencyOptions.fontWeight / 2, this.height / 2 + styleCurrencyOptions.fontWeight * 1.2);
         this.textCurrency.style = new TextStyle(styleCurrencyOptions);//style;
-        this.textCurrency.text = 'гривень';
+        this.textCurrency.text = getPriceText(this.getAmount());
         this.textCurrency.pivot.x = styleCurrencyOptions.fontWeight / 2;
         this.textCurrency.pivot.y = styleCurrencyOptions.fontWeight / 2;
         this.addChild(this.textCurrency);
