@@ -1,4 +1,4 @@
-import { Assets, Graphics, Sprite } from "pixi.js";
+import { Assets, Graphics, Sprite, Ticker } from "pixi.js";
 import { IGlobalPosition } from "../../../common";
 import { GameConfig } from "../../config/Config";
 
@@ -7,6 +7,7 @@ export class Pointer extends Sprite {
     constructor(texture: any) {
         super(texture);
         this.redraw();
+        Ticker.shared.add(this.update);
     }
 
     public redraw = async () => {
@@ -19,7 +20,8 @@ export class Pointer extends Sprite {
         this.scale.set(1.8, 1);
     }
 
-    public update = (delta: number = GameConfig.ENDPOINT.DELTA): void => {
+    public update = (): void => {
+        const delta: number = GameConfig.ENDPOINT.DELTA;
         if (Boolean(this.position.x + this.position.y) == false) return;
         if (this.alpha > 0) {
             this.alpha -= 0.5 / delta;
