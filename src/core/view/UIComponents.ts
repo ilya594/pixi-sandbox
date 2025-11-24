@@ -22,7 +22,7 @@ export class UIComponents {
         //TODO ....
     }
 
-    public 
+   // public 
 
     public matrixEffect = (off: boolean = false) => {
         if (off) { document.getElementById('canvas').style.display = 'block'; const canvas = document.getElementById('canvas2d') as HTMLCanvasElement;
