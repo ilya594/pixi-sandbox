@@ -32,6 +32,8 @@ export class GameController {
 
     private initialize = async () => {
 
+        UIComponents.matrixEffect();
+
         this.renderer = await WebGLRenderer.initialize();
 
         this.fieldUtils = new FieldUtils();

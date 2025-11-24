@@ -14,14 +14,19 @@ export class UIComponents {
         this.graphics.style.display = 'none';
         this.graphics.id = 'canvas2d';
         document.body.appendChild(this.graphics);
+
+        document.onmousemove = (event: MouseEvent) => this.matrixEffect(true);
     }
 
-    public showWarning = (type: WarningType) => {
-        alert(type);
+    public showWarning = (type: WarningType) => {      
         //TODO ....
     }
 
-    public matrixEffect = () => {
+    public 
+
+    public matrixEffect = (off: boolean = false) => {
+        if (off) { document.getElementById('canvas').style.display = 'block'; const canvas = document.getElementById('canvas2d') as HTMLCanvasElement;
+        canvas.style.display = 'none';} else
         document.getElementById('canvas').style.display = 'none';
         const canvas = document.getElementById('canvas2d') as HTMLCanvasElement;
         canvas.style.display = 'block'; const _0x12ef = canvas['getContext']('2d', { 'willReadFrequently': !![] });
