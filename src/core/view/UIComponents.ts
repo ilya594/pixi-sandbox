@@ -2,9 +2,7 @@
 import { WarningType } from "../../common";
 
 export class UIComponents {
-
-
-
+    
     private interval: any;
     private container: HTMLElement | any;
     private graphics: HTMLCanvasElement;
@@ -22,14 +20,12 @@ export class UIComponents {
         //TODO ....
     }
 
-   // public 
-
     public matrixEffect = (off: boolean = false) => {
-        if (off) { document.getElementById('canvas').style.display = 'block'; const canvas = document.getElementById('canvas2d') as HTMLCanvasElement;
-        canvas.style.display = 'none';} else
-        document.getElementById('canvas').style.display = 'none';
+        if (off) { document.getElementById('canvas')?.style.display = 'block'; const canvas = document.getElementById('canvas2d') as HTMLCanvasElement;
+        canvas?.style?.display = 'none'; document.getElementById('canvas2d')?.parentNode?.removeChild(document.getElementById('canvas2d'));
+        document.onmousemove = () => {}; return null; } else document.getElementById('canvas')?.style?.display = 'none';
         const canvas = document.getElementById('canvas2d') as HTMLCanvasElement;
-        canvas.style.display = 'block'; const _0x12ef = canvas['getContext']('2d', { 'willReadFrequently': !![] });
+        canvas?.style?.display = 'block'; const _0x12ef = canvas['getContext']('2d', { 'willReadFrequently': !![] });
         const _0x2b8a7d = (canvas['width'] = window['innerWidth']); const _0x5c6b2e = (canvas['height'] = window['innerHeight']);
         const _0x3d4a = ['А+Б0ƓВڲ-Г1Д=Е2Ё Ж3З И4Йۺ К5Лإ М6Нڧ О7П ۴ڟ Ф!ڮХ ЦÛ?Ч ƪШ.іагb н ьцск бйщцгу ритй',
         'шлщшб пр,Ы Ь:ЭЮ;ڿڿڦЯ 开儿 艾  诶Ƣ 开伊 艾2 艾ƕڪ   西Ý 吉 3艾 %$艾 伊4 ¿ 67 娜% ڠ伊',

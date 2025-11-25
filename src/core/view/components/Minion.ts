@@ -12,8 +12,6 @@ export class Minion extends DynamicGameObject {
 
     public uuid: string = crypto.randomUUID();
 
-    public gridtag: string;
-
     public isGrouped: boolean = false;
 
     public isLazy: boolean = false;
@@ -44,13 +42,9 @@ export class Minion extends DynamicGameObject {
         this.y += this.size / 2;
         this.anchor.set(0.5, 0.5);
         this.scale.set(0.25, 0.25);
-        this.eventMode = 'static'; // Enable interactivity
+        this.eventMode = 'static';
         this.hitArea = new Rectangle(this.x, this.y, this.texture.width, this.texture.height);
     }
-
-   // public override setPath(path: Array<IFieldPosition> = []): void {
-    //    super.setPath(path);
-   // }
 
     public appendPath(path: Array<any>) {
         this.path = this.path.concat(path);
@@ -59,7 +53,7 @@ export class Minion extends DynamicGameObject {
     protected override move(dx: number, dy: number, distance: number): void {
         super.move(dx, dy, distance);
         
-        if  (checkRectanglesIntersection(this as Sprite, GameObjects.exit)) {
+        if (checkRectanglesIntersection(this, GameObjects.exit)) {
             GameEvents.dispatchEvent(GameEvents.GAMEOBJECT_REACHED_EXIT_EVENT, this);
         }
     }

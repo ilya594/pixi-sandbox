@@ -29,7 +29,9 @@ export class FieldUtils {
 
         this.pathFinder = new PathFinder();
 
-        const dudeObserverDisposer = this.createPositionObserver(GameObjects.dude, GameConfig.CELL_SIZE, (object: DynamicGameObject, x: number, y: number) => {
+        const dudeObserverDisposer = 
+            this.createPositionObserver(GameObjects.dude, GameConfig.CELL_SIZE, (object: DynamicGameObject, x: number, y: number) => {
+
             const previous: IFieldPosition = pixelsToPosition({ x, y });
             const current: IFieldPosition = pixelsToPosition(object.position);
 
@@ -38,14 +40,15 @@ export class FieldUtils {
             const positions: Array<any> = this.getPositionsNearby(current, IGridCellType.MINION, 2) || [];
 
             const minions: Array<Minion> = positions.map((position: IFieldPosition) => {
-                const minion = MinionFabric.getMinionByGridtag(GameObjects.minions, JSON.stringify(position));
+                //const minion = MinionFabric.getMinionByGridtag(GameObjects.minions, JSON.stringify(position));
+                const minion: Minion = MinionFabric.getMinionByPosition(position);
                 if (minion && minion.state === DynamicGameObjectState.FRUSTRATING) {
                     const minionObserverDisposer = this.createPositionObserver(GameObjects.dude, GameConfig.CELL_SIZE, (object: DynamicGameObject, x: number, y: number) => {
                         const previous: IFieldPosition = pixelsToPosition({ x, y });
                         const current: IFieldPosition = pixelsToPosition(object.position);
 
                         this.updateGridData(previous, current, IGridCellType.MINION);
-                        minion.gridtag = JSON.stringify(current);
+
                     });
                     return minion;
                 }

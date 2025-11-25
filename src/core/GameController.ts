@@ -79,6 +79,7 @@ export class GameController {
         // TODO get rid of this global-to-local position mess around
         const positions: Array<IFieldPosition> = this.fieldUtils.getPositionsListAround(pixelsToPosition(target), IGridCellType.EMPTY, 5);
 
+        /*
         let halfTimeout: any;
         let fullTimeout: any;
 
@@ -100,10 +101,11 @@ export class GameController {
                     Ticker.shared.start();
                 }, GameConfig.DIALOG.DISPLAY_TIME);
         }
+                */
 
         objects.forEach((minion: Minion) => {
             if (GameObjects.dude.addToGroup(minion)) {
-                processDialogStuff(minion);      
+                //processDialogStuff(minion);      
                 minion.setPath(this.fieldUtils.findPath(
                     pixelsToPosition(minion.position), pixelsToPosition(target), true));
             }
