@@ -74,46 +74,20 @@ export class GameController {
 
     private onObjectsEngaged = (objects: Array<DynamicGameObject>): void => {
 
-        const target: IGlobalPosition = GameObjects.dude.getTarget();
-
-        // TODO get rid of this global-to-local position mess around
+        const path: Array<IFieldPosition> = GameObjects.dude.getPath();
+        const target: IGlobalPosition = path.length ? path.pop() : GameObjects.dude.getTarget();     
         const positions: Array<IFieldPosition> = this.fieldUtils.getPositionsListAround(pixelsToPosition(target), IGridCellType.EMPTY, 5);
-
-        /*
-        let halfTimeout: any;
-        let fullTimeout: any;
-
-        //TODO refactor this shit
-        const processDialogStuff = (minion: Minion) => {
-              GameObjects.dialog.showText(minion);
-              Ticker.shared.stop();
-
-                clearTimeout(halfTimeout);
-                
-                halfTimeout = setTimeout(() => {
-                    GameObjects.dialog.showText(GameObjects.dude, 'ㄨМM...੦ഠ〇K !');
-                }, GameConfig.DIALOG.DISPLAY_TIME / 2);
-
-                clearTimeout(fullTimeout);
-
-                fullTimeout = setTimeout(() => {
-                    GameObjects.dialog.hide();
-                    Ticker.shared.start();
-                }, GameConfig.DIALOG.DISPLAY_TIME);
-        }
-                */
-
+      
         objects.forEach((minion: Minion) => {
             if (GameObjects.dude.addToGroup(minion)) {
-                //processDialogStuff(minion);      
                 minion.setPath(this.fieldUtils.findPath(
                     pixelsToPosition(minion.position), pixelsToPosition(target), true));
             }
         });
 
         GameObjects.minions.forEach((minion: Minion) => {
-            if (minion.isGrouped) {
-                minion.appendPath([positionToPixels(positions.pop())]);
+            if (minion.engaged) {
+                minion.appendPath([positionToPixels(positions.shift())]);
             }
         });
     }

@@ -12,7 +12,17 @@ export class Minion extends DynamicGameObject {
 
     public uuid: string = crypto.randomUUID();
 
-    public isGrouped: boolean = false;
+    #engaged: boolean = false;
+    public setEngaged(value: boolean): void { 
+        this.#engaged = value;
+        if (value) {
+            this.blendMode = 'screen';
+            this.alpha = 1;
+        }
+    };
+    public get engaged(): boolean {
+        return this.#engaged;
+    }
 
     public isLazy: boolean = false;
 
@@ -38,6 +48,7 @@ export class Minion extends DynamicGameObject {
     }
 
     public redraw = () => {
+        this.alpha = 0.5;
         this.x += this.size / 2;
         this.y += this.size / 2;
         this.anchor.set(0.5, 0.5);

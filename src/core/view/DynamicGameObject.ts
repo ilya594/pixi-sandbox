@@ -11,14 +11,14 @@ export class DynamicGameObject extends Sprite {
 
     protected path: Array<IGlobalPosition> = [];
 
-    private _state: DynamicGameObjectState = DynamicGameObjectState.FRUSTRATING;
+    #state: DynamicGameObjectState = DynamicGameObjectState.FRUSTRATING;
 
     private setState = (state: DynamicGameObjectState) => {
-        this._state = state;
+        this.#state = state;
     }
 
     public get state(): DynamicGameObjectState {
-        return this._state;
+        return this.#state;
     }
 
     public get size(): number {
@@ -67,7 +67,7 @@ export class DynamicGameObject extends Sprite {
     }
 
     public update = () => {
-        if (this._state !== DynamicGameObjectState.MOVING) return;
+        if (this.#state !== DynamicGameObjectState.MOVING) return;
 
         const dx: number = this.target.x - this.x;
         const dy: number = this.target.y - this.y;

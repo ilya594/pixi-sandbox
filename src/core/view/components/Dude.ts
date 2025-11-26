@@ -12,7 +12,7 @@ export class Dude extends DynamicGameObject {
 
     public addToGroup = (minion: Minion) => {
         if (this.crew.length >= 5) return null;
-        minion.isGrouped = true;
+        minion.setEngaged(true);
         this.crew.push(minion);
         return minion;
     }
