@@ -1,20 +1,8 @@
-import { IFieldPosition, IGlobalPosition } from "../../common";
+import { IFieldPosition } from "../../common";
 import { GameConfig } from "../config/Config";
+import { ObjectPosition } from "../view/ObjectPosition";
 
-export const pixelsToPosition = (position: IGlobalPosition, size: number = GameConfig.CELL_SIZE): IFieldPosition => {
-    return {
-        x: Math.floor(position.x / size),
-        y: Math.floor(position.y / size),
-    };
-}
-
-export const positionToPixels = (position: IFieldPosition, size: number = GameConfig.CELL_SIZE): IGlobalPosition => {
-    return {
-        x: position.x * size + size / 2,
-        y: position.y * size + size / 2,
-    };
-}
-
+// Remove old conversion functions, keep utilities
 export const getRandomWithin = (max: number, min: number = 0) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -42,3 +30,11 @@ export const getPriceText = (price: number): string => {
     return result;
 }
 
+// Updated P function using ObjectPosition
+export const P = (position: any): ObjectPosition => {
+    if (position.type === "global") return ObjectPosition.fromPixels(position.x, position.y);
+    if (position.type === "field") return ObjectPosition.fromField(position.x, position.y);
+    if (position instanceof ObjectPosition) return position.clone();
+    if (position.x !== undefined && position.y !== undefined) return ObjectPosition.fromPixels(position.x, position.y);
+    return ObjectPosition.fromPixels(0, 0);
+}

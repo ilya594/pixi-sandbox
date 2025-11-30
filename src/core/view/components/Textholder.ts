@@ -21,8 +21,8 @@ export class Textholder extends Sprite {
 
     public showText = (object: any, text: string = undefined) => {
         this.visible = true;
-        this.position.x = object.position.x;
-        this.position.y = object.position.y;
+        this.x = object.location.x;
+        this.y = object.location.y;
         const amount: number = object.getPrice?.();
         this.text.text = (typeof text === 'undefined') ? 
         GameConfig.SCORE.PHRASE_OVERTURE + amount + '\n' + getPriceText(amount) + GameConfig.SCORE.PHRASE_FINALE : text;      

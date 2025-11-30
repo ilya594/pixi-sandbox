@@ -1,7 +1,7 @@
-import { Assets, Container, Graphics, Sprite } from "pixi.js";
+import { Assets, Sprite } from "pixi.js";
 import { GameConfig } from "../../config/Config";
 import { FieldUtils } from "../../utils/FieldUtils";
-import { IGridCellType, IGlobalPosition } from "../../../common";
+import { IGridCellType } from "../../../common";
 
 
 export class Field extends Sprite {
@@ -23,7 +23,9 @@ export class Field extends Sprite {
                 if (!visited.has(coordKey) &&
                     this.data.getLocationType(i, j) === IGridCellType.OBSTACLE) {
                     const sprite: Sprite = new Sprite(Assets.get(Math.random() < 0.2 ? 'obstacle_tag' : 'obstacle_big'));
-                    sprite.position.set(j * GameConfig.CELL_SIZE, i * GameConfig.CELL_SIZE);
+
+                    sprite.x = j * GameConfig.CELL_SIZE;
+                    sprite.y = i * GameConfig.CELL_SIZE;
                     this.addChild(sprite);
 
                     for (let di = 0; di < 5; di++) {
@@ -40,4 +42,3 @@ export class Field extends Sprite {
         }
     }
 }
-export default Field;

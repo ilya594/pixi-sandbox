@@ -4,10 +4,11 @@ import { GameConfig } from "../../config/Config";
 
 export class Exit extends Sprite {
 
-    constructor(texture: any, position: IGlobalPosition = null) {
+    constructor(texture: any, position: any = null) {
         super();
         if (position) {
-            this.position.set(position.x - GameConfig.CELL_SIZE / 2, position.y);
+            this.x = position.x - GameConfig.CELL_SIZE / 2;
+            this.y = position.y;
         }
         this.scale.set(1, 0.5);
         this.eventMode = 'static';

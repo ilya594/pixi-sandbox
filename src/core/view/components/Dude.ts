@@ -1,13 +1,12 @@
 import { Sprite, Texture, Ticker } from "pixi.js";
-import { IGlobalPosition, IFieldPosition, IGridCellType } from "../../../common";
+import { IGlobalPosition, IGridCellType } from "../../../common";
 import { GameConfig } from "../../config/Config";
 import { DynamicGameObject } from "../DynamicGameObject";
 import { Minion } from "./Minion";
+import { ObjectPosition } from "../ObjectPosition";
 
 export class Dude extends DynamicGameObject {
-
     public readonly uuid: string = this.constructor.name + '_' + crypto.randomUUID();
-
     private readonly crew: Array<Minion> = [];
 
     public addToGroup = (minion: Minion) => {
@@ -29,14 +28,12 @@ export class Dude extends DynamicGameObject {
         return GameConfig.DUDE.DELTA;
     }
 
-    constructor(texture: Texture, position: IGlobalPosition = null) {
+    constructor(texture: Texture, position: ObjectPosition = null) {
         super(texture, position);
         this.redraw();
     }
 
     public redraw = () => {
-        this.x += this.size / 2;
-        this.y += this.size / 2;
         this.anchor.set(0.5, 0.5);
     }
 
@@ -54,4 +51,3 @@ export class Dude extends DynamicGameObject {
         return this.target;
     }
 }
-

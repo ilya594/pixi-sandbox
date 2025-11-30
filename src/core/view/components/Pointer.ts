@@ -1,5 +1,4 @@
-import { Assets, Graphics, Sprite, Ticker } from "pixi.js";
-import { IGlobalPosition } from "../../../common";
+import { PointData, Sprite, Ticker } from "pixi.js";
 import { GameConfig } from "../../config/Config";
 
 export class Pointer extends Sprite {
@@ -14,15 +13,16 @@ export class Pointer extends Sprite {
         this.pivot.set(this.width/2, this.height/2);
     }
 
-    public place = (position: IGlobalPosition): void => {
-        this.position = position;
+    public place = (position: PointData): void => {
+        this.x = position.x;
+        this.y = position.y;
         this.alpha = 0.8;
         this.scale.set(1.8, 1);
     }
 
     public update = (): void => {
         const delta: number = GameConfig.ENDPOINT.DELTA;
-        if (Boolean(this.position.x + this.position.y) == false) return;
+        if (Boolean(this.x + this.y) == false) return;
         if (this.alpha > 0) {
             this.alpha -= 0.5 / delta;
         }

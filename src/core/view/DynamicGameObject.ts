@@ -1,17 +1,25 @@
 import { Sprite, Texture, Ticker } from "pixi.js";
 import { IGlobalPosition, IFieldPosition, DynamicGameObjectState, IGridCellType } from "../../common";
 import { GameConfig } from "../config/Config";
-import { positionToPixels } from "../utils/Utils";
-import GameEvents from "../data/GameEvents";
-
+import { ObjectPosition } from "./ObjectPosition";
 
 export class DynamicGameObject extends Sprite {
-
     public readonly uuid: string = this.constructor.name + '_' + crypto.randomUUID();
-
     protected path: Array<IGlobalPosition> = [];
-
     #state: DynamicGameObjectState = DynamicGameObjectState.FRUSTRATING;
+    
+    // Enhanced position management
+    protected _location: ObjectPosition = ObjectPosition.fromPixels(0, 0);
+
+    public get location(): ObjectPosition {
+        return this._location;
+    }
+
+    public set location(value: ObjectPosition) {
+        this._location = value;
+        this.x = value.x;
+        this.y = value.y;
+    }
 
     private setState = (state: DynamicGameObjectState) => {
         this.#state = state;
@@ -35,34 +43,38 @@ export class DynamicGameObject extends Sprite {
 
     public target: IGlobalPosition;
 
-    constructor(texture: Texture, position: IGlobalPosition = null) {
+    constructor(texture: Texture, position: ObjectPosition | IGlobalPosition = null) {
         super(texture);
         if (position) {
-            this.position = position;
+            if (position instanceof ObjectPosition) {
+                this.location = position;
+            } else {
+                this.location = ObjectPosition.fromPixels(position.x, position.y);
+            }
         }
         this.redraw();
         Ticker.shared.add(this.update);
     }
 
-    public redraw = () => {/* obsolete? */ }
+    public redraw = () => { /* obsolete? */ }
 
     public setTarget = (position: IGlobalPosition): void => {
-
         if (!position) return this.setState(DynamicGameObjectState.PENDING);
-
         this.target = position;
-
         this.setState(DynamicGameObjectState.MOVING);
     }
 
     protected move(dx: number, dy: number, distance: number) {
         this.x += (dx / distance) * this.delta;
         this.y += (dy / distance) * this.delta;
+        // Update internal position
+        this._location.setFromPixels(this.x, this.y);
     }
 
     protected stop() {
         this.x = this.target.x;
         this.y = this.target.y;
+        this._location.setFromPixels(this.x, this.y);
         this.setTarget(this.path.shift());
     }
 
@@ -93,6 +105,3 @@ export class DynamicGameObject extends Sprite {
         return Ticker.shared.remove(this.update);
     }
 }
-
-
-

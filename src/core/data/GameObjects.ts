@@ -4,7 +4,7 @@
 
 import { Dude } from "../view/components/Dude";
 import { Exit } from "../view/components/Exit";
-import Field from "../view/components/Field";
+import { Field } from "../view/components/Field";
 import { Minion } from "../view/components/Minion";
 import { Pointer } from "../view/components/Pointer";
 import { Score } from "../view/components/Score";

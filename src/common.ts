@@ -5,9 +5,8 @@ export interface IGameRenderer {
     displayEntities: Function;
 };
 
-export interface IGlobalPosition extends PointData {};
-
-export interface IFieldPosition extends PointData {};
+export interface IGlobalPosition extends PointData { type?: 'global' };
+export interface IFieldPosition extends PointData { type?: 'field' };
 
 export enum IGridCellType {
     EMPTY = 0,
@@ -46,3 +45,7 @@ export abstract class GameConfig {
 
     updateSize: any;
 }
+
+// New Position Classes
+
+
